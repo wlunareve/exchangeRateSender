@@ -33,7 +33,7 @@ def run_crawler():
 
     return AUD_df
 
-def send_email():
+def send_email(AUD_df):
     config = configparser.ConfigParser()
     config.read('config.ini')
 
@@ -86,5 +86,6 @@ def send_email():
 if __name__ == '__main__':
     AUD_df = run_crawler()
     # 澳幣低於 22.3 元 通知
-    if AUD_df['DateValue'].iloc[0] < 22.3:
-        send_email()
+    if AUD_df['DateValue'].iloc[0] < 30.0:
+        print('寄出信件!')
+        send_email(AUD_df)
