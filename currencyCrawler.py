@@ -8,7 +8,6 @@ from smtplib import SMTP
 import configparser 
 import smtplib
 import sys
-import time
 
 def run_crawler():
     page_source = requests.get("https://rate.bot.com.tw/xrt?Lang=zh-TW")
@@ -85,10 +84,7 @@ def send_email():
     smtp.close()
 
 if __name__ == '__main__':
-    while True:
-        AUD_df = run_crawler()
-        print(AUD_df)
-        if AUD_df['DateValue'].iloc[0] < 22.3:
-            send_email()
-        print('休息五分鐘')
-        time.sleep(360)
+    AUD_df = run_crawler()
+    # 澳幣低於 22.3 元 通知
+    if AUD_df['DateValue'].iloc[0] < 22.3:
+        send_email()
