@@ -34,6 +34,7 @@ def run_crawler():
     return AUD_df
 
 def send_email(AUD_df):
+
     config = configparser.ConfigParser()
     config.read('config.ini')
 
