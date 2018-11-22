@@ -87,6 +87,6 @@ def send_email(AUD_df):
 if __name__ == '__main__':
     AUD_df = run_crawler()
     # 澳幣低於 22.3 元 通知
-    if AUD_df['DateValue'].iloc[0] < 30.0:
+    if AUD_df['DateValue'].iloc[0] < 22.3:
         print('寄出信件!')
         send_email(AUD_df)
