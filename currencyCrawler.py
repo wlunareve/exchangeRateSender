@@ -72,7 +72,7 @@ def send_email(AUD_df):
                     </tr>
                     """.format(AUD_df['DateValue'].iloc[0], AUD_df['DateValue'].max(), AUD_df['DateValue'].min(), AUD_df['DateValue'].quantile(.25), AUD_df['DateValue'].quantile(.5), AUD_df['DateValue'].quantile(.75), 'https://rate.bot.com.tw/xrt/quote/l6m/AUD') , 'html')
 
-    msg['Subject'] = "AUD exchange rate < 23.3 "
+    msg['Subject'] = "AUD exchange rate < 22.3 "
     msg['From'] = sender
     msg['To'] = receiver
     
@@ -87,6 +87,6 @@ def send_email(AUD_df):
 if __name__ == '__main__':
     AUD_df = run_crawler()
     # 澳幣低於 22.3 元 通知
-    if AUD_df['DateValue'].iloc[0] < 23.3:
+    if AUD_df['DateValue'].iloc[0] < 22.3:
         print('寄出信件!')
         send_email(AUD_df)
