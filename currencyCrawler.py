@@ -41,7 +41,6 @@ def send_email(AUD_df):
     sender = config['email']['account']
     passwd = config['email']['passwd']
     receiver = config['email']['receiver']
-    receiver = 'wlunareve@gmail.com'
 
     msg = MIMEText("""<tr>
                     <td>澳幣本日現金賣出匯率</td>
