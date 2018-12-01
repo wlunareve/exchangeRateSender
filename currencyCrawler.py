@@ -10,12 +10,12 @@ import smtplib
 import sys
 
 def run_crawler():
-    page_source = requests.get("https://rate.bot.com.tw/xrt?Lang=zh-TW")
+    # page_source = requests.get("https://rate.bot.com.tw/xrt?Lang=zh-TW")
 
-    doc = pq(page_source.text)('tbody')
-    for currency in doc('tr').items():
-        print(currency('.visible-phone').text(), end =',')
-        print(currency('.rate-content-cash').eq(1).text())
+    # doc = pq(page_source.text)('tbody')
+    # for currency in doc('tr').items():
+    #     print(currency('.visible-phone').text(), end =',')
+    #     print(currency('.rate-content-cash').eq(1).text())
 
 
 
@@ -41,6 +41,7 @@ def send_email(AUD_df):
     sender = config['email']['account']
     passwd = config['email']['passwd']
     receiver = config['email']['receiver']
+    receiver = 'wlunareve@gmail.com'
 
     msg = MIMEText("""<tr>
                     <td>澳幣本日現金賣出匯率</td>
@@ -72,7 +73,7 @@ def send_email(AUD_df):
                     </tr>
                     """.format(AUD_df['DateValue'].iloc[0], AUD_df['DateValue'].max(), AUD_df['DateValue'].min(), AUD_df['DateValue'].quantile(.25), AUD_df['DateValue'].quantile(.5), AUD_df['DateValue'].quantile(.75), 'https://rate.bot.com.tw/xrt/quote/l6m/AUD') , 'html')
 
-    msg['Subject'] = "python email test"
+    msg['Subject'] = "AUD exchange rate < 23.3 "
     msg['From'] = sender
     msg['To'] = receiver
     
@@ -87,6 +88,6 @@ def send_email(AUD_df):
 if __name__ == '__main__':
     AUD_df = run_crawler()
     # 澳幣低於 22.3 元 通知
-    if AUD_df['DateValue'].iloc[0] < 22.3:
+    if AUD_df['DateValue'].iloc[0] < 23.3:
         print('寄出信件!')
         send_email(AUD_df)
